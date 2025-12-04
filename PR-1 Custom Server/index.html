@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aditya Giri | Full Stack Developer</title>
+
+  <style>
+    :root{
+      --maxw:1000px;
+      --card:#ffffff;
+      --bg:#f7f8fa;
+      --text:#0f1724;
+      --muted:#556170;
+      --accent:#2563eb;
+      --radius:10px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ---------- Header / nav (centered container) ---------- */
+    .site-header{
+      background:var(--card);
+      box-shadow:0 3px 10px rgba(0,0,0,0.06);
+      position:relative;
+      z-index:20;
+    }
+    .site-inner{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:14px 20px;
+      display:flex;
+      align-items:center;        /* ensures vertical centering */
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    /* Brand */
+    .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text) }
+    .logo{
+      width:44px; height:44px; border-radius:8px;
+      background:linear-gradient(180deg,var(--accent),#1e40af);
+      color:#fff; display:grid; place-items:center; font-weight:700; font-size:15px;
+      flex:0 0 44px;
+      box-shadow:0 6px 18px rgba(37,99,235,0.06);
+    }
+    .brand-text .brand-name{ font-weight:700; font-size:16px; line-height:1 }
+    .brand-text .brand-sub{ font-size:12px; color:var(--muted); margin-top:2px }
+
+    /* Desktop nav */
+    .main-nav{ display:flex; gap:18px; align-items:center; }
+    .nav-link{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      font-size:15px;
+      padding:8px 12px;
+      border-radius:999px;
+      position:relative;
+      transition: color 160ms ease, transform 160ms ease;
+    }
+    .nav-link:hover{ color:var(--text); background: rgba(37,99,235,0.04); transform: translateY(-1px); }
+
+    /* Active pill */
+    .nav-link.active{ color:var(--accent); }
+    .nav-link.active::after{
+      content: "";
+      position:absolute;
+      left:8px;
+      right:8px;
+      bottom:-10px;
+      height:6px;
+      border-radius:8px;
+      background:linear-gradient(90deg, rgba(37,99,235,0.14), rgba(124,58,237,0.10));
+      box-shadow:0 6px 18px rgba(37,99,235,0.06);
+    }
+
+    /* Hamburger & mobile panel */
+    .hamburger{
+      display:none;
+      width:40px; height:40px; border-radius:8px;
+      background:transparent; border:1px solid rgba(20,25,30,0.04);
+      align-items:center; justify-content:center; cursor:pointer;
+    }
+    .mobile-panel{
+      display:none;
+      position:absolute; top:64px; right:20px;
+      background:var(--card); border-radius:10px; overflow:hidden;
+      box-shadow:0 20px 40px rgba(2,6,23,0.08);
+      min-width:180px;
+    }
+    .mobile-panel a{ display:block; padding:12px 14px; border-bottom:1px solid #f1f3f5; color:var(--text); text-decoration:none; }
+    .mobile-panel.open{ display:block; }
+
+    @media (max-width:760px){
+      .main-nav{ display:none; }
+      .hamburger{ display:flex; }
+    }
+
+    /* ---------- Page container and content ---------- */
+    .container{
+      max-width:var(--maxw);
+      margin:28px auto;
+      padding:0 20px;
+    }
+
+    .hero{
+      background:var(--card);
+      border-radius:14px;
+      padding:36px;
+      box-shadow:0 10px 30px rgba(2,6,23,0.06);
+      display:flex;
+      gap:28px;
+      align-items:flex-start;
+      margin-top:40px;
+    }
+
+    .hero-left{ flex:1; }
+    .eyebrow{ display:inline-block; background:rgba(37,99,235,0.08); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px; margin-bottom:12px; }
+    .hero h2{ margin:0 0 10px 0; font-size:32px; line-height:1.05; }
+    .hero p{ margin:0 0 18px 0; color:var(--muted); font-size:15px; }
+
+    .cta-row{ display:flex; gap:12px; align-items:center; margin-top:8px; }
+    .btn{ padding:10px 14px; border-radius:8px; border:0; font-weight:700; cursor:pointer; }
+    .btn-primary{ background:var(--accent); color:#fff; }
+    .btn-ghost{ background:transparent; border:1px solid rgba(20,25,30,0.06); color:var(--text); }
+
+    .hero-right{ width:260px; }
+    .profile-card{ background:transparent; padding:0; border-radius:12px; }
+    .avatar{ width:72px; height:72px; border-radius:12px; background:#e6eefc; color:var(--accent); display:grid; place-items:center; font-weight:800; }
+    .name{ font-weight:700; margin-top:10px; }
+    .role{ font-size:13px; color:var(--muted); margin-top:4px; }
+
+    .mini{ background:var(--card); padding:12px; border-radius:12px; box-shadow:0 6px 18px rgba(2,6,23,0.04); margin-top:14px; }
+
+    .skills-card{
+      background:var(--card);
+      border-radius:14px;
+      padding:22px;
+      box-shadow:0 10px 30px rgba(2,6,23,0.06);
+      margin-top:26px;
+    }
+    .skills-grid{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .skill{ background:#f1f5f9; padding:10px 12px; border-radius:999px; font-weight:700; color:var(--text); font-size:14px; }
+
+    footer{ text-align:center; color:var(--muted); margin:40px 0 20px 0; font-size:13px }
+  </style>
+</head>
+<body>
+
+  <!-- header (same structure as About) -->
+  <header class="site-header" role="banner">
+    <div class="site-inner">
+      <a href="/" class="brand" aria-label="Home - Aditya Giri">
+        <div class="logo">AG</div>
+        <div class="brand-text">
+          <div class="brand-name">Aditya Giri</div>
+          <div class="brand-sub">Full Stack Developer</div>
+        </div>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Main">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/contact" class="nav-link">Contact</a>
+      </nav>
+
+      <button id="hamburger" class="hamburger" aria-label="Open menu">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0" width="18" height="2" rx="1" fill="#0f1724"/>
+          <rect y="6" width="18" height="2" rx="1" fill="#0f1724"/>
+          <rect y="12" width="18" height="2" rx="1" fill="#0f1724"/>
+        </svg>
+      </button>
+
+      <div id="mobilePanel" class="mobile-panel" aria-hidden="true">
+        <a href="/" class="mobile-link">Home</a>
+        <a href="/about" class="mobile-link">About</a>
+        <a href="/contact" class="mobile-link">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="intro">
+      <div class="hero-left">
+        <div class="eyebrow">Open to Work • React & Node</div>
+        <h2 id="intro">Hi, I'm <span style="color:var(--accent)">Aditya Giri</span></h2>
+        <p>I build simple, reliable web apps using HTML, CSS, JavaScript, React and Node.js. I prefer clear code and practical UI over unnecessary effects.</p>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="location.href='#work'">View My Work</button>
+          <button class="btn btn-ghost" onclick="location.href='/contact'">Contact</button>
+        </div>
+
+        <div style="margin-top:18px">
+          <h3 style="margin:18px 0 0 0">About me</h3>
+          <p style="color:var(--muted);margin:8px 0 0 0">Fresher — I learn by building projects. Comfortable with DSA basics in C++ and front-end development.</p>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="profile-card">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="avatar">AG</div>
+            <div>
+              <div class="name">Aditya Giri</div>
+              <div class="role">Full Stack Developer</div>
+            </div>
+          </div>
+
+          <div class="mini" style="margin-top:12px">
+            <div style="font-size:13px;color:var(--muted)">Location</div>
+            <div style="font-weight:800;margin-top:6px">India • Gujarat</div>
+          </div>
+
+          <div class="mini">
+            <div style="font-size:13px;color:var(--muted)">Availability</div>
+            <div style="font-weight:800;margin-top:6px">Freelance / Part-time</div>
+          </div>
+
+          <div class="mini" style="margin-top:12px">
+            <div style="font-size:13px;color:var(--muted)">Projects</div>
+            <div style="font-weight:800;margin-top:6px">Recipe Book • Escalator</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="work" class="skills-card">
+      <h3 style="margin:0">My Skills</h3>
+      <div class="skills-grid">
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">React</div>
+        <div class="skill">Node.js</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built by Aditya Giri — clean, readable, and simple.
+  </footer>
+
+  <script>
+    (function(){
+      // set active link based on current path (keeps Home active when on root)
+      const path = location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.main-nav .nav-link, .mobile-panel a').forEach(a=>{
+        const href = a.getAttribute('href').replace(/\/$/, '') || '/';
+        if(href === path) a.classList.add('active');
+        else a.classList.remove('active');
+      });
+
+      // mobile toggle
+      const btn = document.getElementById('hamburger');
+      const panel = document.getElementById('mobilePanel');
+      if(btn && panel){
+        btn.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          panel.classList.toggle('open');
+          panel.setAttribute('aria-hidden', panel.classList.contains('open') ? 'false' : 'true');
+        });
+        document.addEventListener('click', (e)=>{
+          if(!panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('open');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
