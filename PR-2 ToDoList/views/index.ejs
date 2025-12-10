@@ -1,0 +1,134 @@
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>To-Do • Simple & Lovely</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>My To-Do</h1>
+        <p class="muted">Fast, simple, and delightfully minimal.</p>
+      </header>
+
+      <% if (flash) { %>
+        <div class="flash"><%= flash %></div>
+      <% } %>
+
+      <section class="create">
+        <form action="/tasks" method="POST" class="card form">
+          <div class="row">
+            <input name="title" placeholder="Add a new task..." required autofocus />
+            <select name="priority" title="Priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+            <input type="date" name="due_date" />
+            <button class="btn">Add</button>
+          </div>
+          <textarea name="description" rows="2" placeholder="Optional description"></textarea>
+        </form>
+      </section>
+
+      <section class="list card">
+        <% if (tasks.length === 0) { %>
+          <div class="empty">
+            <strong>No tasks yet.</strong>
+            <p>Try adding one — it's satisfying.</p>
+          </div>
+        <% } else { %>
+          <ul class="tasks">
+            <% tasks.forEach(task => { %>
+              <li class="task <%= task.done ? 'done' : '' %>">
+                <div class="left">
+                  <input class="toggle" data-id="<%= task.id %>" type="checkbox" <%= task.done ? 'checked' : '' %> />
+                  <div class="meta">
+                    <div class="title"><%= task.title %></div>
+                    <div class="sub">
+                      <% if (task.due_date) { %>
+                        <span class="badge">Due: <%= task.due_date %></span>
+                      <% } %>
+                      <span class="badge">Priority: <%= task.priority %></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right">
+                  <a class="btn small" href="/tasks/<%= task.id %>/edit">Edit</a>
+
+                  <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" class="inline">
+                    <button type="submit" class="btn small danger" onclick="return confirm('Delete this task?')">Delete</button>
+                  </form>
+                </div>
+
+                <% if (task.description) { %>
+                  <p class="description"><%= task.description %></p>
+                <% } %>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+
+      <footer class="footer">
+        <small>Built with Node + Express + EJS • Local JSON storage</small>
+      </footer>
+    </main>
+
+  <script>
+    // Toggle complete with AJAX for nice instant feedback
+    document.querySelectorAll('.toggle').forEach(cb => {
+      cb.addEventListener('change', async (e) => {
+        const id = e.target.dataset.id;
+        try {
+          const resp = await fetch('/tasks/' + id + '/toggle', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' }
+          });
+          if (!resp.ok) throw new Error('Toggle failed');
+          const json = await resp.json();
+          // flip visual class
+          const li = e.target.closest('li');
+          if (json.task.done) li.classList.add('done'); else li.classList.remove('done');
+        } catch (err) {
+          alert('Could not update task. Try reloading the page.');
+        }
+      });
+    });
+  </script>
+  <script>
+    (function () {
+      const flash = document.querySelector('.flash');
+      if (!flash) return;
+
+      // Auto-fade after 2.3s
+      setTimeout(() => {
+        flash.style.transition = 'opacity 350ms ease, transform 350ms ease';
+        flash.style.opacity = '0';
+        flash.style.transform = 'translateY(-6px)';
+      }, 2300);
+
+      // Remove from DOM after fade
+      setTimeout(() => {
+        if (flash && flash.parentNode) flash.parentNode.removeChild(flash);
+      }, 2700);
+
+      // Remove "flash" query param from URL so it doesn't show on reload
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('flash')) {
+          url.searchParams.delete('flash');
+          // Replace history state without reloading page
+          window.history.replaceState({}, '', url.pathname + url.search);
+        }
+      } catch (e) {
+        // ignore old browsers
+      }
+    })();
+  </script>
+
+  </body>
+  </html>

@@ -1,0 +1,278 @@
+/* ---------------------------------------------------------
+   BRIGHT MODERN TODO APP THEME
+   Clean, minimal, smooth shadows, pretty action buttons
+---------------------------------------------------------- */
+:root {
+  --bg: #f5f7fa;
+  --text: #1e293b;
+  --muted: #64748b;
+
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 28px;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+---------------------------------------------------------- */
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------
+   CARDS
+---------------------------------------------------------- */
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------------
+   INPUTS & FORMS
+---------------------------------------------------------- */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  font-size: 15px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.row input[type="text"] {
+  flex-grow: 1;
+}
+
+/* ---------------------------------------------------------
+   BUTTONS
+---------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.btn.primary {
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.btn.success {
+  background: var(--success);
+  color: white;
+}
+
+.btn.danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn.small {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------
+   TASK LIST
+---------------------------------------------------------- */
+.tasks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.task:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+/* Top row: checkbox + title + actions */
+.task-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task .toggle {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Meta info */
+.sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  background: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+/* Done task style */
+.task.done {
+  background: #e9f9ef;
+  border-color: #b5eac5;
+}
+
+.task.done .title {
+  text-decoration: line-through;
+  color: #509f60;
+}
+
+/* Description under meta */
+.description {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------
+   ACTION BUTTONS (Edit, Delete)
+---------------------------------------------------------- */
+.right {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.right form {
+  margin: 0;
+  display: inline-block;
+}
+
+/* ---------------------------------------------------------
+   FLASH MESSAGE
+---------------------------------------------------------- */
+.flash {
+  background: var(--primary);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ---------------------------------------------------------
+   EMPTY STATE
+---------------------------------------------------------- */
+.empty {
+  text-align: center;
+  padding: 28px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+---------------------------------------------------------- */
+.footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
+@media (max-width: 600px){
+  .row {
+    flex-direction: column;
+  }
+
+  .right {
+    flex-direction: row;
+  }
+
+  .task-top {
+    flex-wrap: wrap;
+  }
+}

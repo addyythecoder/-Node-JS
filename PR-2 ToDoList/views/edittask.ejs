@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edit Task • <%= task.title %></title>
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Edit Task</h1>
+      <p class="muted">Make changes and save — or cancel to go back.</p>
+    </header>
+
+    <form class="card form" action="/tasks/<%= task.id %>?_method=PUT" method="POST">
+      <label>Title</label>
+      <input name="title" value="<%= task.title %>" required />
+
+      <label>Description</label>
+      <textarea name="description" rows="4"><%= task.description %></textarea>
+
+      <div class="row">
+        <label>Due date</label>
+        <input type="date" name="due_date" value="<%= task.due_date || '' %>" />
+
+        <label>Priority</label>
+        <select name="priority">
+          <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Low</option>
+          <option value="medium" <%= task.priority === 'medium' ? 'selected' : '' %>>Medium</option>
+          <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>High</option>
+        </select>
+      </div>
+
+      <div class="row actions">
+        <button class="btn">Save</button>
+        <a class="btn ghost" href="/">Cancel</a>
+
+        <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" class="inline">
+          <button type="submit" class="btn danger" onclick="return confirm('Delete this task?')">Delete</button>
+        </form>
+      </div>
+    </form>
+
+    <footer class="footer">
+      <small><a href="/">← Back to list</a></small>
+    </footer>
+  </main>
+</body>
+</html>
