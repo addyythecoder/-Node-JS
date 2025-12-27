@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eef2f7;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        /* ---------- Add Book Card ---------- */
+        .form-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            max-width: 450px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccd3dd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            border-color: #5dade2;
+            box-shadow: 0 0 0 2px rgba(93, 173, 226, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.92;
+        }
+
+        /* ---------- Books Table ---------- */
+        .table-wrapper {
+            margin-top: 40px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #34495e;
+            color: #ffffff;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fb;
+        }
+
+        td img {
+            width: 100px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+        }
+
+        .edit-btn {
+            background: #3498db;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        .no-data {
+            color: red;
+            font-weight: bold;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Book Store Details</h1>
+
+    <!-- Add Book Form -->
+    <div class="form-card">
+        <form action="/add-book" method="post">
+
+            <div class="form-group">
+                <label>Book Title</label>
+                <input type="text" name="Booktitle" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Author Name</label>
+                <input type="text" name="Authorname" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="Desc" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" name="Image" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <select name="Language" class="form-control" required>
+                    <option value="">Select language</option>
+                    <option value="English">English</option>
+                    <option value="Gujrati">Gujrati</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" name="Price" class="form-control" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Add Book</button>
+
+        </form>
+    </div>
+
+    <!-- Books List -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Language</th>
+                    <th>Price</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% if (books.length === 0) { %>
+                    <tr>
+                        <td colspan="9" class="no-data">No record found</td>
+                    </tr>
+                <% } else { %>
+                    <% books.forEach((book, i) => { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= book.Booktitle %></td>
+                            <td><%= book.Authorname %></td>
+                            <td><%= book.Desc %></td>
+                            <td><img src="<%= book.Image %>" alt=""></td>
+                            <td><%= book.Language %></td>
+                            <td><%= book.Price %></td>
+                            <td>
+                                <a href="/Deletebook/<%= book.id %>">
+                                    <button class="action-btn delete-btn">Delete</button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/Editbook/<%= book.id %>">
+                                    <button class="action-btn edit-btn">Edit</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
+    

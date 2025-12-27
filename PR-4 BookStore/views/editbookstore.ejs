@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eef1f6;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-card {
+            background: #ffffff;
+            width: 420px;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .edit-card h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 6px;
+            border: 1px solid #cfd6e0;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.92;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+    <div class="edit-card">
+        <h2>Edit Book Details</h2>
+
+        <form action="/update-book/<%= book.id %>" method="post">
+
+            <div class="form-group">
+                <label>Book Title</label>
+                <input type="text" name="Booktitle" class="form-control" value="<%= book.Booktitle %>">
+            </div>
+
+            <div class="form-group">
+                <label>Author Name</label>
+                <input type="text" name="Authorname" class="form-control" value="<%= book.Authorname %>">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="Desc" class="form-control" value="<%= book.Desc %>">
+            </div>
+
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" name="Image" class="form-control" value="<%= book.Image %>">
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <select name="Language" class="form-control">
+                    <option value="">Select language</option>
+                    <option value="English" <%= book.Language === "English" ? "selected" : "" %>>English</option>
+                    <option value="Gujarati" <%= book.Language === "Gujarati" ? "selected" : "" %>>Gujarati</option>
+                    <option value="Hindi" <%= book.Language === "Hindi" ? "selected" : "" %>>Hindi</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" name="Price" class="form-control" value="<%= book.Price %>">
+            </div>
+
+            <button type="submit" class="btn-submit">Update Book</button>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
