@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Movie | MovieHub</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/add.movie.css">
+</head>
+
+<body>
+
+<%- include('header.ejs') %>
+
+<div class="form-wrapper">
+    <div class="form-container">
+
+        <!-- HEADER -->
+        <div class="form-header">
+            <h2>🎬 Edit Movie</h2>
+            <p>Update the details of your movie</p>
+        </div>
+
+        <form action="/update-movie/<%= movie._id %>" method="post" enctype="multipart/form-data">
+
+            <!-- MOVIE TITLE -->
+            <div class="form-group">
+                <label>Movie Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    value="<%= movie.title %>"
+                    placeholder="Enter movie title"
+                    required>
+            </div>
+
+            <!-- GENRE -->
+            <div class="form-group">
+                <label>Genre</label>
+                <select name="genre" required>
+                    <option value="">Select Genre</option>
+                    <option value="Action" <%= movie.genre === "Action" ? "selected" : "" %>>Action</option>
+                    <option value="Drama" <%= movie.genre === "Drama" ? "selected" : "" %>>Drama</option>
+                    <option value="Comedy" <%= movie.genre === "Comedy" ? "selected" : "" %>>Comedy</option>
+                    <option value="Romance" <%= movie.genre === "Romance" ? "selected" : "" %>>Romance</option>
+                    <option value="Horror" <%= movie.genre === "Horror" ? "selected" : "" %>>Horror</option>
+                    <option value="Sci-Fi" <%= movie.genre === "Sci-Fi" ? "selected" : "" %>>Sci-Fi</option>
+                </select>
+            </div>
+
+            <!-- YEAR & RATING -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Release Year</label>
+                    <input
+                        type="text"
+                        name="year"
+                        value="<%= movie.year %>"
+                        maxlength="4"
+                        placeholder="2025"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rating</label>
+                    <select name="rating" class="rating-select" required>
+                        <option value="">Select Rating</option>
+                        <option value="1" <%= movie.rating == 1 ? "selected" : "" %>>⭐ 1</option>
+                        <option value="2" <%= movie.rating == 2 ? "selected" : "" %>>⭐⭐ 2</option>
+                        <option value="3" <%= movie.rating == 3 ? "selected" : "" %>>⭐⭐⭐ 3</option>
+                        <option value="4" <%= movie.rating == 4 ? "selected" : "" %>>⭐⭐⭐⭐ 4</option>
+                        <option value="5" <%= movie.rating == 5 ? "selected" : "" %>>⭐⭐⭐⭐⭐ 5</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+                <label>Description</label>
+                <textarea
+                    name="description"
+                    rows="4"
+                    placeholder="Movie description"><%= movie.description %></textarea>
+            </div>
+
+            <!-- IMAGE -->
+            <div class="form-group">
+                <label>Movie Poster</label>
+
+                <div class="image-preview">
+                    <img src="<%= movie.ProfileImage %>" alt="Movie Poster">
+                </div>
+
+                <input type="file" name="ProfileImage">
+            </div>
+
+            <!-- BUTTON -->
+            <div class="btn-group">
+                <button type="submit" class="submit-btn">💾 Update Movie</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+</body>
+</html>

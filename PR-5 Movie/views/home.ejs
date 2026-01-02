@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+        <div class="movie-container">
+
+            <% if (movies.length===0) { %>
+                <p class="no-movie">No movies added</p>
+                <% } %>
+
+                    <% movies.forEach(movie=> { %>
+                        <div class="movie-card-pro">
+
+                            <div class="card-img">
+                                <img src="<%= movie.ProfileImage %>" alt="movie poster" width="150">
+                            </div>
+
+                            <div class="card-top">
+                                <span class="genre-pill">
+                                    <%= movie.genre %>
+                                </span>
+                                <span class="rating-pill">⭐ <%= movie.rating || "N/A" %></span>
+                            </div>
+
+                            <h3 class="movie-title">
+                                <%= movie.title %>
+                            </h3>
+
+                            <p class="movie-year">🎞 <%= movie.year %>
+                            </p>
+
+                            <!-- <p class="movie-desc">
+                                <%= movie.description || "No description available" %>
+                            </p> -->
+
+                            <!-- ACTION BUTTONS -->
+                            <div class="card-actions">
+                                <a href="/edit-movie/<%= movie._id %>" class="edit-btn" title="Edit">
+                                    ✏ Edit
+                                </a>
+
+                                <a href="/delete-movie/<%= movie._id %>" class="delete-btn" title="Delete">
+                                    🗑 Delete
+                                </a>
+                            </div>
+
+                        </div>
+                        <% }) %>
+
+        </div>
+
+        <%- include('footer.ejs') %>
+</body>
+
+</html>

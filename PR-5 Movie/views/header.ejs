@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MovieHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", Arial, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* LOGO */
+        .logo a {
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+
+        .logo a span {
+            color: #e11d48;
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5f5;
+            font-size: 16px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: #38bdf8;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* ADD MOVIE BUTTON */
+        .add-movie-btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            color: #020617;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .add-movie-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(56, 189, 248, 0.45);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 25px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="/">🎬 Movie<span>Hub</span></a>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">Trending</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <a href="/add-movie" class="add-movie-btn">➕ Add Movie</a>
+    </header>
+
+</body>
+
+</html>

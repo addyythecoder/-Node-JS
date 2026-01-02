@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Movie | MovieHub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter","Poppins",system-ui,sans-serif;
+}
+
+/* ================= BACKGROUND ================= */
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 10%, #6366f1, transparent 35%),
+        radial-gradient(circle at 90% 20%, #22d3ee, transparent 40%),
+        radial-gradient(circle at 50% 90%, #22c55e, transparent 45%),
+        linear-gradient(180deg, #020617, #020617);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#e5e7eb;
+}
+
+/* ================= GLASS CARD ================= */
+.form-container{
+    width:520px;
+    padding:48px 42px;
+    border-radius:30px;
+    background:rgba(15,23,42,0.75);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:
+        0 40px 120px rgba(0,0,0,0.7),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+    position:relative;
+    animation:fadeUp 0.8s ease;
+}
+
+/* NEON BORDER */
+.form-container::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:32px;
+    background:linear-gradient(135deg,#6366f1,#38bdf8,#22c55e);
+    z-index:-1;
+    filter:blur(18px);
+    opacity:0.7;
+}
+
+/* ================= HEADER ================= */
+.form-header{
+    text-align:center;
+    margin-bottom:36px;
+}
+
+.form-header h2{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:1px;
+    background:linear-gradient(135deg,#38bdf8,#22c55e);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.form-header p{
+    font-size:14px;
+    color:#94a3b8;
+    margin-top:6px;
+}
+
+/* ================= FORM ================= */
+.form-group{
+    margin-bottom:24px;
+}
+
+.form-row{
+    display:flex;
+    gap:20px;
+}
+
+.form-row .form-group{
+    flex:1;
+}
+
+label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#94a3b8;
+    margin-bottom:8px;
+}
+
+/* ================= INPUTS ================= */
+input[type="text"],
+textarea,
+select,
+input[type="file"]{
+    width:100%;
+    padding:16px 18px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.15);
+    background:rgba(2,6,23,0.8);
+    color:#f8fafc;
+    font-size:15px;
+    transition:all 0.35s ease;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#64748b;
+}
+
+/* FOCUS */
+input:focus,
+textarea:focus,
+select:focus{
+    outline:none;
+    border-color:#38bdf8;
+    box-shadow:
+        0 0 0 4px rgba(56,189,248,0.35),
+        0 20px 40px rgba(56,189,248,0.25);
+    transform:translateY(-2px);
+}
+
+/* TEXTAREA */
+textarea{
+    resize:none;
+    min-height:120px;
+}
+
+/* ================= STAR RATING SELECT ================= */
+.rating-select{
+    appearance:none;
+    background:
+        linear-gradient(135deg,rgba(250,204,21,0.2),rgba(250,204,21,0.05)),
+        rgba(2,6,23,0.85);
+    border:1px solid rgba(250,204,21,0.6);
+    font-weight:700;
+    color:#fde68a;
+    cursor:pointer;
+    padding-right:50px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23facc15'><path d='M12 17.3l6.18 3.7-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 16px center;
+    background-size:20px;
+}
+
+.rating-select:hover{
+    background-color:#020617;
+}
+
+/* ================= BUTTON ================= */
+.btn-group{
+    margin-top:40px;
+    text-align:center;
+}
+
+.submit-btn{
+    padding:18px 60px;
+    border:none;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#020617;
+    background:linear-gradient(135deg,#38bdf8,#22c55e);
+    cursor:pointer;
+    box-shadow:
+        0 25px 60px rgba(56,189,248,0.6);
+    transition:all 0.4s ease;
+}
+
+.submit-btn:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:
+        0 40px 90px rgba(34,197,94,0.7);
+}
+
+.submit-btn:active{
+    transform:translateY(-2px);
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(0.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:600px){
+    .form-container{
+        width:100%;
+        padding:36px 26px;
+    }
+
+    .form-row{
+        flex-direction:column;
+    }
+
+    .form-header h2{
+        font-size:24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2>🎬 Add Movie</h2>
+        <p>Create a cinematic experience</p>
+    </div>
+
+    <form action="/addmoviedata" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Movie Title</label>
+            <input type="text" name="title" placeholder="Enter movie title" required>
+        </div>
+
+        <div class="form-group">
+            <label>Genre</label>
+            <select name="genre" required>
+                <option value="">Select Genre</option>
+                <option>Action</option>
+                <option>Drama</option>
+                <option>Comedy</option>
+                <option>Romance</option>
+                <option>Horror</option>
+                <option>Sci-Fi</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Release Year</label>
+                <input type="text" name="year" placeholder="2025" required>
+            </div>
+
+            <div class="form-group">
+                <label>Rating</label>
+                <select name="rating" class="rating-select" required>
+                    <option value="">Select Rating</option>
+                    <option value="1">⭐ 1</option>
+                    <option value="2">⭐⭐ 2</option>
+                    <option value="3">⭐⭐⭐ 3</option>
+                    <option value="4">⭐⭐⭐⭐ 4</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="Write a short movie description..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Movie Poster</label>
+            <input type="file" name="ProfileImage" required>
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="submit-btn">🚀 Publish Movie</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

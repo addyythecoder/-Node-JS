@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="../css/add.movie.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <center class="form-wrapper">
+            <div class="form-container">
+                <h2>➕ Add New Movie</h2>
+
+                <form action="/addmoviedata" method="post" enctype="multipart/form-data">
+                    <label>Movie Title</label>
+                    <input type="text" name="title" placeholder="Enter movie title" required>
+
+                    <label>Genre</label>
+                    <select name="genre" required>
+                        <option value="">-- Select Genre --</option>
+                        <option>Action</option>
+                        <option>Drama</option>
+                        <option>Comedy</option>
+                        <option>Romance</option>
+                        <option>Horror</option>
+                        <option>Sci-Fi</option>
+                    </select>
+
+                    <label>Release Year</label>
+                    <input type="text" name="year" maxlength="4" pattern="^(18[8-9][0-9]|19[0-9]{2}|20[0-2][0-9]|2025)$"
+                        placeholder="2025" required>
+
+
+
+
+                    <label>Rating</label>
+                    <select name="rating" required>
+                        <option value="">-- Select Rating --</option>
+                        <option value="1">⭐ 1</option>
+                        <option value="2">⭐⭐ 2</option>
+                        <option value="3">⭐⭐⭐ 3</option>
+                        <option value="4">⭐⭐⭐⭐ 4</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5</option>
+                    </select>
+
+
+
+                    <label>Description</label>
+                    <textarea name="description" rows="3" placeholder="Movie description" required></textarea>
+
+                    <label>Image</label>
+                    <input type="file" name="ProfileImage" required>
+
+                    <div class="btn-group">
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </center>
+        <%- include('footer.ejs') %>
+</body>
+
+</html>
