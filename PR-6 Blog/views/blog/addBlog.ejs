@@ -1,0 +1,186 @@
+<%- include('../header') %>
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Add Blog</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row d-flex justify-content-start">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" action="/blog/add-blog" method="post"
+                            enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Add Blog</h4>
+
+                                <!-- Title -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Title</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="title"
+                                            placeholder="Enter Blog Title" required>
+                                    </div>
+                                </div>
+
+                                <!-- Slug -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Slug</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="slug"
+                                            placeholder="example-blog-title" required>
+                                    </div>
+                                </div>
+
+                                <!-- Author -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Author</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="author" placeholder="Author Name"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" name="email" placeholder="Enter Email"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" name="password"
+                                            placeholder="Enter Password" required>
+                                    </div>
+                                </div>
+
+                                <!-- Short Description -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Short Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="shortDesc" rows="2"
+                                            placeholder="Short summary..." required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Full Description -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="description" rows="5"
+                                            placeholder="Full blog content..." required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="category" required>
+                                            <option value="">Select Category</option>
+                                            <option>Technology</option>
+                                            <option>Education</option>
+                                            <option>Travel</option>
+                                            <option>Food</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Status</label>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input type="radio" name="status" value="publish" checked> Publish
+                                        </label>
+                                        <label class="ml-3">
+                                            <input type="radio" name="status" value="draft"> Draft
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Tags -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Tags</label>
+                                    <div class="col-sm-9">
+                                        <label><input type="checkbox" name="tags[]" value="NodeJS"> NodeJS</label>
+                                        <label class="ml-3"><input type="checkbox" name="tags[]" value="MongoDB">
+                                            MongoDB</label>
+                                        <label class="ml-3"><input type="checkbox" name="tags[]" value="Express">
+                                            Express</label>
+                                    </div>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Blog Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control" name="blogImage"
+                                            onchange="previewImage(event)" required>
+                                        <img id="preview" style="max-width:150px; margin-top:10px; display:none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-top text-center p-3">
+                                <button type="submit" class="btn btn-primary">Submit Blog</button>
+                            </div>
+                        </form>
+
+                        <script>
+                            function previewImage(event) {
+                                const img = document.getElementById('preview');
+                                img.src = URL.createObjectURL(event.target.files[0]);
+                                img.style.display = 'block';
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+
+        <%- include('../footer') %>

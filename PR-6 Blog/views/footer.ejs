@@ -1,0 +1,84 @@
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+<footer class="footer text-center">
+    All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+</footer>
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<!-- <script src="dist/js/pages/dashboards/dashboard1.js"></script> -->
+<!-- Charts js Files -->
+<script src="/assets/libs/flot/excanvas.js"></script>
+<script src="/assets/libs/flot/jquery.flot.js"></script>
+<script src="/assets/libs/flot/jquery.flot.pie.js"></script>
+<script src="/assets/libs/flot/jquery.flot.time.js"></script>
+<script src="/assets/libs/flot/jquery.flot.stack.js"></script>
+<script src="/assets/libs/flot/jquery.flot.crosshair.js"></script>
+<script src="/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+<script src="dist/js/pages/chart/chart-page-init.js"></script>
+<script>
+    document.getElementById("togglePassword").addEventListener("change", function () {
+        const passwordField = document.getElementById("password");
+
+        if (this.checked) {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    });
+</script>
+
+<!-- Search Script -->
+<script>
+    document.getElementById("blogSearch").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".blog-card");
+
+        cards.forEach(card => {
+            let title = card.dataset.title;
+            let author = card.dataset.author;
+            let category = card.dataset.category;
+            let tags = card.dataset.tags;
+
+            if (
+                title.includes(value) ||
+                author.includes(value) ||
+                category.includes(value) ||
+                tags.includes(value)
+            ) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

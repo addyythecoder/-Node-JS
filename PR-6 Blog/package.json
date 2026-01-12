@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "nodemon app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "module": "^2.0.0",
+    "mongoose": "^9.1.1",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.11"
+  }
+}

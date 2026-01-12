@@ -1,0 +1,169 @@
+<%- include('../header') %>
+
+<style>
+    body {
+        background: #f4f6f9;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Header */
+    .admin-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 50px 20px;
+        border-radius: 0 0 40px 40px;
+        color: white;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .admin-header h2 {
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .search-box {
+        max-width: 450px;
+        margin: 20px auto 0;
+    }
+
+    .search-input {
+        border-radius: 50px;
+        padding: 14px 22px;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    /* Blog Card */
+    .blog-box {
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(10px);
+        border-radius: 22px;
+        padding: 18px;
+        transition: all 0.35s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        height: 100%;
+    }
+
+    .blog-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    }
+
+    .blog-img {
+        height: 180px;
+        object-fit: cover;
+        border-radius: 16px;
+        background: #eee;
+    }
+
+    .blog-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 12px;
+    }
+
+    .meta {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 4px;
+    }
+
+    .status-pill {
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .publish {
+        background: #28a745;
+    }
+
+    .draft {
+        background: #ffc107;
+        color: #333;
+    }
+
+    .tag {
+        background: #e9ecef;
+        border-radius: 12px;
+        padding: 4px 10px;
+        font-size: 12px;
+        margin-right: 5px;
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    .actions a {
+        border-radius: 50px;
+        font-size: 13px;
+        padding: 6px 14px;
+    }
+</style>
+
+<div class="admin-header">
+    <h2>Blog Management Panel</h2>
+    <p class="mb-3">Manage, Edit & Publish Blogs</p>
+
+    <div class="search-box">
+        <input type="text" id="blogSearch" class="form-control search-input"
+               placeholder="🔍 Search by title, author, category or tags">
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <% blogs.forEach((blo)=> { %>
+            <div class="col-lg-4 col-md-6 mb-4 blog-card"
+                 data-title="<%= String(blo.title).toLowerCase() %>"
+                 data-author="<%= String(blo.author).toLowerCase() %>"
+                 data-category="<%= String(blo.category).toLowerCase() %>"
+                 data-tags="<%= (Array.isArray(blo.tags) ? blo.tags.join(' ') : String(blo.tags)).toLowerCase() %>">
+
+                <div class="blog-box">
+
+                    <img src="<%= blo.blogImage %>" class="img-fluid blog-img">
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span class="status-pill <%= blo.status === 'publish' ? 'publish' : 'draft' %>">
+                            <%= blo.status %>
+                        </span>
+                        <small class="text-muted"><%= blo.publish_date %></small>
+                    </div>
+
+                    <div class="blog-title"><%= blo.title %></div>
+
+                    <div class="meta">✍ <%= blo.author %></div>
+                    <div class="meta">📂 <%= blo.category %></div>
+                    <div class="meta">📧 <%= blo.email %></div>
+
+                    <div class="mt-2">
+                        <% if(Array.isArray(blo.tags)){ %>
+                            <% blo.tags.forEach(tag => { %>
+                                <span class="tag"><%= tag %></span>
+                            <% }) %>
+                        <% } else { %>
+                            <span class="tag"><%= blo.tags %></span>
+                        <% } %>
+                    </div>
+
+                    <div class="actions d-flex justify-content-between mt-3">
+                        <a href="/blog/single-view/<%= blo.id %>" class="btn btn-outline-info btn-sm">View</a>
+                        <a href="/blog/edit-blog/<%= blo.id %>" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <a href="/blog/delete-blog/<%= blo.id %>"
+                           onclick="return confirm('Are you sure?')"
+                           class="btn btn-outline-danger btn-sm">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+</div>
+
+<%- include('../footer') %>

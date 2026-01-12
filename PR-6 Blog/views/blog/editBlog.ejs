@@ -1,0 +1,164 @@
+<%- include('../header') %>
+
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex align-items-center">
+                    <h4 class="page-title">Edit Blog</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-start">
+                <div class="col-md-6">
+                    <div class="card">
+
+                        <form class="form-horizontal" action="/blog/update-blog/<%= blog._id %>" method="post"
+                            enctype="multipart/form-data">
+
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Edit Blog</h4>
+
+                                <!-- Title -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Title</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="title" value="<%= blog.title %>"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Slug -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Slug</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="slug" value="<%= blog.slug %>"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Author -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Author</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="author" value="<%= blog.author %>"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" name="email" value="<%= blog.email %>"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Password (hidden – optional update) -->
+                                <div class="form-group row" hidden>
+                                    <label class="col-sm-3 text-right">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" name="password"
+                                            value="<%= blog.password %>">
+                                    </div>
+                                </div>
+
+                                <!-- Short Description -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Short Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="shortDesc" rows="2"
+                                            required><%= blog.shortDesc %></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Full Description -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="description" rows="5"
+                                            required><%= blog.description %></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="category" required>
+                                            <option value="">Select Category</option>
+                                            <option value="Technology" <%=blog.category==='Technology' ?'selected':'' %>
+                                                >Technology</option>
+                                            <option value="Education" <%=blog.category==='Education' ?'selected':'' %>
+                                                >Education</option>
+                                            <option value="Travel" <%=blog.category==='Travel' ?'selected':'' %>>Travel
+                                            </option>
+                                            <option value="Food" <%=blog.category==='Food' ?'selected':'' %>>Food
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Status</label>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input type="radio" name="status" value="publish" <%=blog.status==='publish'
+                                                ?'checked':'' %>> Publish
+                                        </label>
+                                        <label class="ml-3">
+                                            <input type="radio" name="status" value="draft" <%=blog.status==='draft'
+                                                ?'checked':'' %>> Draft
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Tags -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Tags</label>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input type="checkbox" name="tags[]" value="NodeJS"
+                                                <%=blog.tags.includes('NodeJS')?'checked':'' %>> NodeJS
+                                        </label>
+
+                                        <label class="ml-3">
+                                            <input type="checkbox" name="tags[]" value="MongoDB"
+                                                <%=blog.tags.includes('MongoDB')?'checked':'' %>> MongoDB
+                                        </label>
+
+                                        <label class="ml-3">
+                                            <input type="checkbox" name="tags[]" value="Express"
+                                                <%=blog.tags.includes('Express')?'checked':'' %>> Express
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Image -->
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right">Blog Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control" name="blogImage">
+                                        <img src="/uploads/<%= blog.blogImage %>"
+                                            style="max-width:120px;margin-top:10px;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="border-top text-center p-3">
+                                <button type="submit" class="btn btn-primary">Update Blog</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

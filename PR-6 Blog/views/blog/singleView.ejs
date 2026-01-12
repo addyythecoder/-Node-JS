@@ -1,0 +1,146 @@
+<%- include('../header') %>
+
+<style>
+    body {
+        background: #f4f6f9;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .blog-hero {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 60px 20px 120px;
+        border-radius: 0 0 40px 40px;
+        text-align: center;
+        color: #fff;
+        position: relative;
+    }
+
+    .blog-hero h1 {
+        font-weight: 600;
+        margin-top: 20px;
+    }
+
+    .blog-wrapper {
+        max-width: 900px;
+        margin: -100px auto 50px;
+    }
+
+    .blog-card {
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+    }
+
+    .blog-image {
+        max-height: 420px;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 20px;
+        background: #eee;
+        margin-bottom: 25px;
+    }
+
+    .meta-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .status-pill {
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 12px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .publish {
+        background: #28a745;
+    }
+
+    .draft {
+        background: #ffc107;
+        color: #333;
+    }
+
+    .tag {
+        display: inline-block;
+        background: #e9ecef;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin: 5px 6px 0 0;
+    }
+
+    .description {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .back-btn {
+        border-radius: 50px;
+        padding: 10px 30px;
+    }
+</style>
+
+<!-- HERO -->
+<div class="blog-hero">
+    <h1><%= blog.title %></h1>
+</div>
+
+<!-- CONTENT -->
+<div class="blog-wrapper">
+    <div class="blog-card">
+
+        <img src="<%= blog.blogImage %>" class="blog-image">
+
+        <div class="meta-box">
+            <div>
+                ✍ <b><%= blog.author %></b> &nbsp; | &nbsp; 📧 <%= blog.email %>
+            </div>
+            <div>
+                <span class="status-pill <%= blog.status === 'publish' ? 'publish' : 'draft' %>">
+                    <%= blog.status %>
+                </span>
+            </div>
+        </div>
+
+        <div class="meta-box">
+            <div>📂 <b>Category:</b> <%= blog.category %></div>
+            <div>📅 <b>Publish Date:</b> <%= blog.publish_date %></div>
+        </div>
+
+        <div class="mb-3">
+            <% if(Array.isArray(blog.tags)) { %>
+                <% blog.tags.forEach(tag => { %>
+                    <span class="tag">#<%= tag %></span>
+                <% }) %>
+            <% } else { %>
+                <span class="tag">#<%= blog.tags %></span>
+            <% } %>
+        </div>
+
+        <hr>
+
+        <h4 class="mb-3">📝 Description</h4>
+
+        <p class="description">
+            <%= blog.description %>
+        </p>
+
+        <div class="text-center mt-5">
+            <a href="/blog/view-blog" class="btn btn-outline-secondary back-btn">
+                ← Back to Blogs
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<%- include('../footer') %>
