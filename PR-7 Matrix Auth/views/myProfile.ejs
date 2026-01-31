@@ -1,0 +1,61 @@
+<%- include("header") %>
+
+    <div class="container mt-5">
+        <div class="card shadow-lg p-4 profile-card">
+            <div class="row align-items-center">
+
+                <div class="col-md-4 text-center">
+                    <img src="<%= admin.adminImage || '/images/default-user.png' %>"
+                        class="img-fluid rounded-circle mb-3 profile-img">
+
+                    <h4 class="text-primary mb-0">
+                        <%= admin.name %>
+                    </h4>
+                    <span class="badge badge-success mt-2">
+                        <%= admin.role || "Admin" %>
+                    </span>
+                </div>
+
+                <div class="col-md-8">
+                    <h3 class="mb-4 border-bottom pb-2">
+                         Admin Profile Details
+                    </h3>
+
+                    <table class="table table-borderless profile-table">
+                        <tr>
+                            <th>Name</th>
+                            <td>
+                                <%= admin.name %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>
+                                <%= admin.email %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Role</th>
+                            <td>
+                                <span class="badge badge-info">
+                                    <%= admin.role || "Admin" %>
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="mt-4">
+                        <a href="/dashboard" class="btn btn-secondary px-4">
+                             Back
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include("footer") %>

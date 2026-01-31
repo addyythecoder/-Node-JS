@@ -1,0 +1,178 @@
+<%- include('../header') %>
+
+    <style>
+        body {
+            background: #0e1015;
+            color: #e4e6eb;
+        }
+
+
+        .admin-search {
+            border-radius: 50px;
+            padding: 12px 20px;
+            background: #1c1f26;
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #2b2f3a;
+        }
+
+        .admin-search::placeholder {
+            color: #9aa0ac;
+        }
+
+        .admin-card {
+            transition: all 0.35s ease;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .admin-card-inner {
+            border-radius: 22px;
+            background: rgba(28, 31, 38, 0.9);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid #2b2f3a;
+            overflow: hidden;
+        }
+
+        .admin-card-inner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            background: radial-gradient(circle at top, rgba(79, 195, 247, 0.08), transparent 60%);
+            pointer-events: none;
+        }
+
+        .admin-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            border-bottom: 1px solid #2b2f3a;
+        }
+
+        .status-pill {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: rgba(15, 157, 88, 0.15);
+            color: #34e89e;
+            border: 1px solid #34e89e;
+        }
+
+        .status-inactive {
+            background: rgba(217, 48, 37, 0.15);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        .action-btn {
+            border-radius: 50px;
+            font-size: 13px;
+            padding: 6px 14px;
+        }
+
+        .badge-info {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            border: none;
+        }
+
+        hr {
+            border-color: #2b2f3a;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+    </style>
+
+    <div class="page-wrapper">
+
+        <div class="container pt-4">
+
+            <!-- Title -->
+            <div class="text-center mb-4">
+                <h2 class="text-white font-weight-bold">Admins</h2>
+                <p class="text-muted">Manage all admin accounts</p>
+
+                <input type="text" id="adminSearch" class="form-control admin-search mt-3 w-50 mx-auto"
+                    placeholder="🔍 Search by name or email">
+            </div>
+
+            <div class="row" id="adminList">
+
+                <% admins.forEach(admin=> { %>
+                    <div class="col-lg-4 col-md-6 mb-4 admin-card">
+
+                        <div class="admin-card-inner">
+
+                            <img src="<%= admin.image %>" class="admin-img">
+
+                            <div class="p-4 text-center">
+
+                                <h5 class="mb-1 text-white font-weight-bold">
+                                    <%= admin.name %>
+                                </h5>
+
+                                <span class="badge badge-info mb-2 px-3 py-1">
+                                    <%= admin.role %>
+                                </span>
+
+                                <p class="text-muted mb-2">
+                                    <small>
+                                        <%= admin.email %>
+                                    </small>
+                                </p>
+
+                                <span class="status-pill 
+                                <%= admin.status === 'active' ? 'status-active' : 'status-inactive' %>">
+                                    <%= admin.status.toUpperCase() %>
+                                </span>
+
+                                <div class="d-flex justify-content-center gap-2 mt-4">
+                                    <a href="/admin/single-view/<%= admin.id %>"
+                                        class="btn btn-outline-info action-btn mr-2">
+                                        View
+                                    </a>
+
+                                    <a href="/admin/edit-admin/<%= admin.id %>"
+                                        class="btn btn-outline-primary action-btn mr-2">
+                                        Edit
+                                    </a>
+
+                                    <a href="/admin/delete-admin/<%= admin.id %>"
+                                        onclick="return confirm('Are you sure?')"
+                                        class="btn btn-outline-danger action-btn">
+                                        Delete
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("adminSearch").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            document.querySelectorAll(".admin-card").forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(value)
+                    ? "block"
+                    : "none";
+            });
+        });
+    </script>
+
+    <%- include('../footer') %>

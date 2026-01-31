@@ -1,0 +1,84 @@
+<%- include('../header') %>
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Add Blog</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form action="/blog/update-blog/<%= blog.id %>" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+
+                                <input type="text" name="title" value="<%= blog.title %>" class="form-control mb-3"
+                                    placeholder="Blog Title" required>
+
+                                <input type="text" name="author" value="<%= blog.author %>" class="form-control mb-3"
+                                    placeholder="Author Name" required>
+
+                                <textarea name="description" class="form-control mb-3" placeholder="Blog Description"
+                                    rows="4" required><%= blog.description %></textarea>
+
+                                <input type="text" name="category" class="form-control mb-3"
+                                    value="<%= blog.category %>" placeholder="Category">
+
+                                <select name="status" class="form-control mb-3">
+                                    <option value="publish" <%=blog.status=="publish" ?"selected":"" %>
+                                        >Publish</option>
+                                    <option value="draft" <%=blog.status=="draft" ?"selected":"" %>>Draft
+                                    </option>
+                                </select>
+
+                                <input type="file" name="image" class="form-control mb-3" >
+
+                                <button class="btn btn-primary w-100">Update</button>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <%- include('../footer') %>
