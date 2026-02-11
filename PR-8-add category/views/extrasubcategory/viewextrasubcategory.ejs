@@ -1,0 +1,236 @@
+<%- include('../header')%>
+
+<div class="page-wrapper">
+
+  <div class="content-area">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div>
+        <h2>Extra Sub Categories</h2>
+        <p>Manage level-3 hierarchy</p>
+      </div>
+
+      <a href="/extrasubcategory/add-extrasubcategory" class="add-btn">
+        + New Entry
+      </a>
+    </div>
+
+    <!-- CARD -->
+    <div class="table-card">
+
+      <div class="table-header">
+        <h4>Hierarchy List</h4>
+        <span class="count-badge">
+          <%= extrasubcategory.length %> Items
+        </span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="modern-table">
+
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Path</th>
+              <th>Extra Sub Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% extrasubcategory.forEach(item=>{ %>
+            <tr>
+
+              <!-- CATEGORY -->
+              <td>
+                <div class="cat-cell">
+                  <img src="<%= item.categoryId.categoryImage %>">
+                  <div>
+                    <strong><%= item.categoryId.categoryName %></strong>
+                    <small>#<%= item.id.toString().slice(-5) %></small>
+                  </div>
+                </div>
+              </td>
+
+              <!-- PATH -->
+              <td>
+                <div class="path">
+                  <span><%= item.categoryId.categoryName %></span>
+                  →
+                  <span class="sub">
+                    <%= item.subcategoryId.subCategoryName %>
+                  </span>
+                </div>
+              </td>
+
+              <!-- EXTRA -->
+              <td>
+                <span class="pill">
+                  <%= item.extrasubCategoryName %>
+                </span>
+              </td>
+
+              <!-- ACTIONS -->
+              <td>
+                <div class="actions">
+                  <a href="/extrasubcategory/edit-extrasubcategory/<%= item.id %>" class="edit">Edit</a>
+                  <a href="/extrasubcategory/delete-extrasubcategory/<%= item.id %>" 
+                     class="delete"
+                     onclick="return confirm('Delete this item?')">
+                     Delete
+                  </a>
+                </div>
+              </td>
+
+            </tr>
+            <% }) %>
+
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+/* PAGE */
+.page-wrapper{
+  background:#f6f8fb !important;
+}
+
+.content-area{
+  padding:40px;
+}
+
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.top-bar h2{ font-weight:700; }
+.top-bar p{ color:#6b7280; }
+
+/* ADD BTN */
+.add-btn{
+  background:#2563eb;
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.add-btn:hover{
+  background:#1d4ed8;
+  color:white;
+}
+
+/* CARD */
+.table-card{
+  background:white;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+/* HEADER */
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+}
+
+.count-badge{
+  background:#eef2ff;
+  color:#2563eb;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+/* TABLE */
+.modern-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.modern-table th{
+  text-align:left;
+  font-size:13px;
+  color:#6b7280;
+  padding:14px;
+  border-bottom:1px solid #eee;
+}
+
+.modern-table td{
+  padding:16px 14px;
+  border-bottom:1px solid #f1f1f1;
+}
+
+.modern-table tr:hover{
+  background:#f9fbff;
+}
+
+/* CATEGORY CELL */
+.cat-cell{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.cat-cell img{
+  width:45px;
+  height:45px;
+  border-radius:10px;
+  object-fit:cover;
+}
+
+.cat-cell small{
+  display:block;
+  color:#9ca3af;
+}
+
+/* PATH */
+.path{
+  font-size:14px;
+}
+
+.path .sub{
+  font-weight:600;
+}
+
+/* PILL */
+.pill{
+  background:#eef2ff;
+  color:#2563eb;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+/* ACTIONS */
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+.actions a{
+  text-decoration:none;
+  font-weight:600;
+  font-size:13px;
+}
+
+.edit{ color:#2563eb; }
+.delete{ color:#dc2626; }
+
+</style>
+
+<%- include('../footer')%>

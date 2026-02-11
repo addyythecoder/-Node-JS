@@ -1,0 +1,188 @@
+<%- include('../header')%>
+
+<div class="page-wrapper">
+
+  <div class="content-area">
+
+    <!-- HEADER -->
+    <div class="top-bar">
+      <div>
+        <h2>Add Extra Sub Category</h2>
+        <p>Create a level-3 product grouping</p>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+
+      <form action="/extrasubcategory/add-extrasubcategory" method="post" class="modern-form">
+
+        <!-- CATEGORY SELECT -->
+        <div class="field">
+          <select name="categoryId" id="categoryId" required>
+            <option value="" disabled selected></option>
+            <% category.forEach(cat=>{ %>
+              <option value="<%= cat.id %>"><%= cat.categoryName %></option>
+            <% }) %>
+          </select>
+          <label>Main Category</label>
+        </div>
+
+        <!-- SUBCATEGORY SELECT -->
+        <div class="field">
+          <select name="subcategoryId" id="subcategoryId" required>
+            <option value="" disabled selected></option>
+          </select>
+          <label>Sub Category</label>
+        </div>
+
+        <!-- EXTRA NAME -->
+        <div class="field">
+          <input type="text" 
+                 name="extrasubCategoryName" 
+                 required>
+          <label>Extra Sub Category Name</label>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="submit-btn">
+          Save Extra Sub Category
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+/* PAGE */
+.page-wrapper{
+  background:#f6f8fb !important;
+}
+
+.content-area{
+  padding:40px;
+  max-width:700px;
+}
+
+/* HEADER */
+.top-bar h2{
+  font-weight:700;
+}
+
+.top-bar p{
+  color:#6b7280;
+  margin-bottom:25px;
+}
+
+/* CARD */
+.form-card{
+  background:white;
+  padding:35px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* FORM */
+.modern-form{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* FLOATING FIELDS */
+.field{
+  position:relative;
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+  appearance:none;
+}
+
+.field label{
+  position:absolute;
+  left:14px;
+  top:16px;
+  font-size:14px;
+  color:#9ca3af;
+  pointer-events:none;
+  transition:0.2s;
+  background:white;
+  padding:0 5px;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:#2563eb;
+  background:white;
+}
+
+.field input:focus + label,
+.field input:valid + label,
+.field select:focus + label,
+.field select:valid + label{
+  top:-8px;
+  font-size:12px;
+  color:#2563eb;
+}
+
+/* BUTTON */
+.submit-btn{
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  background:#2563eb;
+  color:white;
+}
+
+.submit-btn:hover{
+  background:#1d4ed8;
+}
+
+</style>
+
+<script>
+
+const categorySelect = document.getElementById('categoryId');
+const subcategorySelect = document.getElementById('subcategoryId');
+
+categorySelect.addEventListener('change', async () => {
+  const id = categorySelect.value;
+
+  subcategorySelect.innerHTML = `<option>Loading...</option>`;
+
+  try{
+    const res = await fetch(`/extrasubcategory/subcategory/${id}`);
+    const data = await res.json();
+    const subs = data.data;
+
+    subcategorySelect.innerHTML = `<option value="" disabled selected></option>`;
+
+    subs.forEach(s=>{
+      const opt = document.createElement('option');
+      opt.value = s._id;
+      opt.textContent = s.subCategoryName;
+      subcategorySelect.appendChild(opt);
+    });
+
+  }catch{
+    subcategorySelect.innerHTML = `<option>Error loading</option>`;
+  }
+});
+
+</script>
+
+<%- include('../footer')%>

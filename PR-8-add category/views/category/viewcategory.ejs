@@ -1,0 +1,223 @@
+<%- include('../header')%>
+
+<div class="page-wrapper">
+
+  <div class="content-area">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div>
+        <h2>Categories</h2>
+        <p>Manage your product categories</p>
+      </div>
+
+      <a href="/category/add-category" class="add-btn">
+        + Add Category
+      </a>
+    </div>
+
+    <!-- CARD -->
+    <div class="table-card">
+
+      <!-- SEARCH -->
+      <div class="table-header">
+        <h4>All Categories</h4>
+        <input type="text" placeholder="Search category...">
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table class="modern-table">
+
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Preview</th>
+              <th>Name</th>
+              <th>ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% category.forEach((cat,i)=>{ %>
+            <tr>
+
+              <td><%= i+1 %></td>
+
+              <td>
+                <img src="<%= cat.categoryImage %>" class="cat-img">
+              </td>
+
+              <td>
+                <strong><%= cat.categoryName %></strong>
+              </td>
+
+              <td>
+                <span class="cat-id">
+                  #<%= cat.id.toString().substring(0,8) %>
+                </span>
+              </td>
+
+              <td>
+                <div class="actions">
+                  <a href="/category/edit-category/<%= cat.id %>" class="edit">Edit</a>
+                  <a href="/category/delete-category/<%= cat.id %>" 
+                     class="delete"
+                     onclick="return confirm('Delete this category?')">
+                     Delete
+                  </a>
+                </div>
+              </td>
+
+            </tr>
+            <% }) %>
+
+            <% if(category.length === 0){ %>
+            <tr>
+              <td colspan="5" class="empty">
+                No categories found
+              </td>
+            </tr>
+            <% } %>
+
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+/* PAGE */
+.page-wrapper{
+  background:#f6f8fb !important;
+}
+
+.content-area{
+  padding:40px;
+}
+
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.top-bar h2{
+  font-weight:700;
+}
+
+.top-bar p{
+  color:#6b7280;
+}
+
+/* ADD BUTTON */
+.add-btn{
+  background:#2563eb;
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.add-btn:hover{
+  background:#1d4ed8;
+  color:white;
+}
+
+/* CARD */
+.table-card{
+  background:white;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+/* HEADER */
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+}
+
+.table-header input{
+  padding:10px 14px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+}
+
+/* TABLE */
+.modern-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.modern-table th{
+  text-align:left;
+  font-size:13px;
+  color:#6b7280;
+  padding:14px;
+  border-bottom:1px solid #eee;
+}
+
+.modern-table td{
+  padding:16px 14px;
+  border-bottom:1px solid #f1f1f1;
+}
+
+.modern-table tr:hover{
+  background:#f9fbff;
+}
+
+/* IMAGE */
+.cat-img{
+  width:50px;
+  height:50px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+/* ID */
+.cat-id{
+  background:#f3f4f6;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+/* ACTIONS */
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+.actions a{
+  text-decoration:none;
+  font-weight:600;
+  font-size:13px;
+}
+
+.edit{ color:#2563eb; }
+.delete{ color:#dc2626; }
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:40px;
+  color:#9ca3af;
+}
+
+</style>
+
+<%- include('../footer')%>
+    

@@ -1,0 +1,10 @@
+const mongoose = require('mongoose')
+
+const dbconnect = () => {
+   mongoose.connect("mongodb+srv://addythecoder:%40Damnflame77@cluster0.umcwng9.mongodb.net/blog")
+        .then(() => console.log('DB is Connected !!!'))
+        .catch((error) => console.log(error))
+}
+
+module.exports = dbconnect;
+

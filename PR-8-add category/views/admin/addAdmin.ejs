@@ -1,0 +1,243 @@
+<%- include('../header')%>
+
+<div class="admin-wrapper">
+
+  <div class="admin-header">
+    <h2>Create Admin Account</h2>
+    <p>Add a new administrator to the system</p>
+  </div>
+
+  <form action="/admin/add-admin" method="post" enctype="multipart/form-data" class="admin-form">
+
+    <!-- NAME -->
+    <div class="grid-2">
+      <div class="field">
+        <input type="text" name="firstname" required>
+        <label>First Name</label>
+      </div>
+
+      <div class="field">
+        <input type="text" name="lastname" required>
+        <label>Last Name</label>
+      </div>
+    </div>
+
+    <!-- EMAIL + PASSWORD -->
+    <div class="grid-2">
+      <div class="field">
+        <input type="email" name="email" required>
+        <label>Email Address</label>
+      </div>
+
+      <div class="field">
+        <input type="password" name="password" minlength="8" required>
+        <label>Password</label>
+      </div>
+    </div>
+
+    <!-- GENDER + PHONE -->
+    <div class="grid-2">
+
+      <div>
+        <p class="label-title">Gender</p>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <input type="tel" name="mobileno">
+        <label>Contact Number</label>
+      </div>
+
+    </div>
+
+    <!-- HOBBIES -->
+    <div>
+      <p class="label-title">Hobbies</p>
+      <div class="check-group">
+        <label><input type="checkbox" name="hobbies[]" value="reading"> Reading</label>
+        <label><input type="checkbox" name="hobbies[]" value="music"> Music</label>
+        <label><input type="checkbox" name="hobbies[]" value="adventure"> Adventure</label>
+      </div>
+    </div>
+
+    <!-- UPLOAD -->
+    <div>
+      <p class="label-title">Profile Image</p>
+      <label class="upload-area">
+        <input type="file" name="profileImage" hidden required>
+        <span>Click to upload image</span>
+      </label>
+    </div>
+
+    <button class="submit-btn">Create Admin</button>
+
+  </form>
+
+</div>
+
+<style>
+
+/* ===== PAGE ===== */
+body{
+  background:#f6f8fb;
+  font-family:Inter, sans-serif;
+  color:#111;
+}
+
+.admin-wrapper{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.admin-header h2{
+  font-weight:700;
+}
+
+.admin-header p{
+  color:#6b7280;
+  margin-bottom:30px;
+}
+
+/* ===== FORM CARD ===== */
+.admin-form{
+  background:white;
+  padding:35px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* ===== GRID ===== */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* ===== FLOATING INPUT ===== */
+.field{
+  position:relative;
+}
+
+.field input{
+  width:100%;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+  font-size:14px;
+}
+
+.field label{
+  position:absolute;
+  left:14px;
+  top:16px;
+  font-size:14px;
+  color:#9ca3af;
+  pointer-events:none;
+  transition:0.2s;
+  background:white;
+  padding:0 5px;
+}
+
+.field input:focus{
+  border-color:#2563eb;
+  background:white;
+}
+
+.field input:focus + label,
+.field input:valid + label{
+  top:-8px;
+  font-size:12px;
+  color:#2563eb;
+}
+
+/* ===== TITLES ===== */
+.label-title{
+  font-weight:600;
+  margin-bottom:10px;
+  color:#374151;
+}
+
+/* ===== RADIO ===== */
+.radio-group{
+  display:flex;
+  gap:15px;
+}
+
+.radio-group label{
+  padding:12px 18px;
+  border-radius:30px;
+  border:1px solid #e5e7eb;
+  cursor:pointer;
+  background:white;
+}
+
+.radio-group input{
+  accent-color:#2563eb;
+  margin-right:6px;
+}
+
+/* ===== CHECKBOX ===== */
+.check-group{
+  display:flex;
+  gap:15px;
+}
+
+.check-group label{
+  padding:10px 16px;
+  border-radius:30px;
+  border:1px solid #e5e7eb;
+  cursor:pointer;
+  background:white;
+}
+
+.check-group input{
+  accent-color:#2563eb;
+  margin-right:6px;
+}
+
+/* ===== UPLOAD ===== */
+.upload-area{
+  border:2px dashed #d1d5db;
+  padding:30px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer;
+  background:#fafafa;
+  transition:0.3s;
+}
+
+.upload-area:hover{
+  border-color:#2563eb;
+  background:#eff6ff;
+}
+
+/* ===== BUTTON ===== */
+.submit-btn{
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  background:#2563eb;
+  color:white;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  background:#1d4ed8;
+  transform:translateY(-2px);
+}
+
+</style>
+
+<%- include('../footer')%>

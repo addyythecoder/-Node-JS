@@ -1,0 +1,44 @@
+<%- include('./header')%>
+
+<div style="padding:40px; display:flex; justify-content:center;">
+
+    <div style="
+        width:420px;
+        background:#ffffff;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 4px 15px rgba(0,0,0,0.15);
+        text-align:center;
+    ">
+
+        <h2 style="margin-bottom:20px; color:#333;">User Profile</h2>
+
+        <!-- Profile Image -->
+        <div style="margin-bottom:15px;">
+            <% if (locals.user.profileImage) { %>
+                <img src="<%= locals.user.profileImage %>" 
+                     style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+            <% } else { %>
+                <img src="/images/default-user.png" 
+                     style="width:120px; height:120px; border-radius:50%;">
+            <% } %>
+        </div>
+
+        <!-- User Details -->
+        <div style="text-align:left; margin-top:20px;">
+            <p style="margin:8px 0;"><strong>Name :</strong> <%= user.firstname %></p>
+            <p style="margin:8px 0;"><strong>LastName :</strong> <%= user.lastname %></p>
+            <p style="margin:8px 0;"><strong>Email :</strong> <%= user.email %></p>
+            <p style="margin:8px 0;"><strong>Mobile :</strong> <%= user.mobileno%></p>
+            <p style="margin:8px 0;"><strong>Gender :</strong> <%= user.gender %></p>
+            
+        </div>
+
+       
+
+    </div>
+
+</div>
+    
+
+    <%- include('./footer')%>

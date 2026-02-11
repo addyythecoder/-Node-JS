@@ -1,0 +1,266 @@
+<%- include('../header') %>
+
+<div class="admin-wrapper">
+
+  <div class="admin-header">
+    <h2>Edit Admin</h2>
+    <p>Update administrator details</p>
+  </div>
+
+  <form action="/admin/update-admin/<%= admin.id %>" method="post" enctype="multipart/form-data" class="admin-form">
+
+    <!-- PROFILE PREVIEW -->
+    <div class="profile-section">
+      <img src="<%= admin.profileImage %>" id="preview-img">
+      
+      <label class="upload-mini">
+        Change Photo
+        <input type="file" name="profileImage" id="file-input" hidden onchange="previewFile()">
+      </label>
+    </div>
+
+    <!-- NAME -->
+    <div class="grid-2">
+      <div class="field">
+        <input type="text" name="firstname" value="<%= admin.firstname %>" required>
+        <label>First Name</label>
+      </div>
+
+      <div class="field">
+        <input type="text" name="lastname" value="<%= admin.lastname %>" required>
+        <label>Last Name</label>
+      </div>
+    </div>
+
+    <!-- EMAIL + PHONE -->
+    <div class="grid-2">
+      <div class="field">
+        <input type="email" name="email" value="<%= admin.email %>" required>
+        <label>Email Address</label>
+      </div>
+
+      <div class="field">
+        <input type="tel" name="mobileno" value="<%= admin.mobileno %>">
+        <label>Phone Number</label>
+      </div>
+    </div>
+
+    <!-- GENDER -->
+    <div>
+      <p class="label-title">Gender</p>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="gender" value="Male" <%= admin.gender==='Male'?'checked':'' %>>
+          Male
+        </label>
+
+        <label>
+          <input type="radio" name="gender" value="Female" <%= admin.gender==='Female'?'checked':'' %>>
+          Female
+        </label>
+      </div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div>
+      <p class="label-title">Hobbies</p>
+      <div class="check-group">
+        <label>
+          <input type="checkbox" name="hobbies[]" value="reading"
+          <%= admin.hobbies.includes('reading')?'checked':'' %>>
+          Reading
+        </label>
+
+        <label>
+          <input type="checkbox" name="hobbies[]" value="music"
+          <%= admin.hobbies.includes('music')?'checked':'' %>>
+          Music
+        </label>
+
+        <label>
+          <input type="checkbox" name="hobbies[]" value="Adventure"
+          <%= admin.hobbies.includes('Adventure')?'checked':'' %>>
+          Adventure
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn">Save Changes</button>
+
+  </form>
+</div>
+
+<style>
+
+/* PAGE */
+body{
+  background:#f6f8fb;
+  font-family:Inter, sans-serif;
+  color:#111;
+}
+
+.admin-wrapper{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.admin-header h2{ font-weight:700; }
+.admin-header p{ color:#6b7280; margin-bottom:25px; }
+
+/* FORM CARD */
+.admin-form{
+  background:white;
+  padding:35px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* PROFILE */
+.profile-section{
+  text-align:center;
+}
+
+.profile-section img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  display:block;
+  margin:auto;
+}
+
+.upload-mini{
+  display:inline-block;
+  margin-top:10px;
+  font-size:14px;
+  color:#2563eb;
+  cursor:pointer;
+}
+
+/* GRID */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* FLOATING INPUT */
+.field{
+  position:relative;
+}
+
+.field input{
+  width:100%;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+}
+
+.field label{
+  position:absolute;
+  left:14px;
+  top:16px;
+  font-size:14px;
+  color:#9ca3af;
+  pointer-events:none;
+  transition:0.2s;
+  background:white;
+  padding:0 5px;
+}
+
+.field input:focus{
+  border-color:#2563eb;
+  background:white;
+}
+
+.field input:focus + label,
+.field input:valid + label{
+  top:-8px;
+  font-size:12px;
+  color:#2563eb;
+}
+
+/* TITLES */
+.label-title{
+  font-weight:600;
+  margin-bottom:10px;
+  color:#374151;
+}
+
+/* RADIO */
+.radio-group{
+  display:flex;
+  gap:15px;
+}
+
+.radio-group label{
+  padding:12px 18px;
+  border-radius:30px;
+  border:1px solid #e5e7eb;
+  cursor:pointer;
+  background:white;
+}
+
+.radio-group input{
+  accent-color:#2563eb;
+  margin-right:6px;
+}
+
+/* CHECKBOX */
+.check-group{
+  display:flex;
+  gap:15px;
+}
+
+.check-group label{
+  padding:10px 16px;
+  border-radius:30px;
+  border:1px solid #e5e7eb;
+  cursor:pointer;
+  background:white;
+}
+
+.check-group input{
+  accent-color:#2563eb;
+  margin-right:6px;
+}
+
+/* BUTTON */
+.submit-btn{
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  background:#2563eb;
+  color:white;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  background:#1d4ed8;
+  transform:translateY(-2px);
+}
+
+</style>
+
+<script>
+function previewFile(){
+  const preview = document.getElementById('preview-img');
+  const file = document.getElementById('file-input').files[0];
+  const reader = new FileReader();
+
+  reader.onload = e => preview.src = e.target.result;
+  if(file) reader.readAsDataURL(file);
+}
+</script>
+
+<%- include('../footer') %>

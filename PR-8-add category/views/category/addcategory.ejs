@@ -1,0 +1,219 @@
+<%- include('../header')%>
+
+<div class="page-wrapper">
+
+  <div class="content-area">
+
+    <!-- HEADER -->
+    <div class="top-bar">
+      <div>
+        <h2>Add Category</h2>
+        <p>Create a new product category</p>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+
+      <form action="/category/add-category" method="post" enctype="multipart/form-data" class="modern-form">
+
+        <!-- NAME -->
+        <div class="field">
+          <input type="text" name="categoryName" required>
+          <label>Category Name</label>
+        </div>
+
+        <!-- IMAGE -->
+        <div>
+          <p class="label-title">Category Image</p>
+
+          <label class="upload-box">
+            <input type="file" name="categoryImage" id="catImgInput" hidden required>
+            
+            <div id="uploadContent">
+              <span class="upload-icon">⬆</span>
+              <p>Click to upload image</p>
+            </div>
+
+            <img id="imgPreview" style="display:none;">
+          </label>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="btn-row">
+          <button class="submit-btn">Create Category</button>
+          <a href="/category/view-categories" class="cancel-btn">Cancel</a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+/* PAGE */
+.page-wrapper{
+  background:#f6f8fb !important;
+}
+
+.content-area{
+  padding:40px;
+  max-width:700px;
+}
+
+/* HEADER */
+.top-bar h2{
+  font-weight:700;
+}
+
+.top-bar p{
+  color:#6b7280;
+  margin-bottom:25px;
+}
+
+/* CARD */
+.form-card{
+  background:white;
+  padding:35px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* FORM */
+.modern-form{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* FLOATING INPUT */
+.field{
+  position:relative;
+}
+
+.field input{
+  width:100%;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+}
+
+.field label{
+  position:absolute;
+  left:14px;
+  top:16px;
+  font-size:14px;
+  color:#9ca3af;
+  pointer-events:none;
+  transition:0.2s;
+  background:white;
+  padding:0 5px;
+}
+
+.field input:focus{
+  border-color:#2563eb;
+  background:white;
+}
+
+.field input:focus + label,
+.field input:valid + label{
+  top:-8px;
+  font-size:12px;
+  color:#2563eb;
+}
+
+/* TITLE */
+.label-title{
+  font-weight:600;
+  color:#374151;
+}
+
+/* UPLOAD */
+.upload-box{
+  border:2px dashed #d1d5db;
+  border-radius:12px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  display:block;
+  background:#fafafa;
+  transition:0.3s;
+}
+
+.upload-box:hover{
+  border-color:#2563eb;
+  background:#eff6ff;
+}
+
+.upload-icon{
+  font-size:26px;
+  color:#2563eb;
+}
+
+.upload-box img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+/* BUTTONS */
+.btn-row{
+  display:flex;
+  gap:15px;
+}
+
+.submit-btn{
+  flex:1;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  background:#2563eb;
+  color:white;
+}
+
+.submit-btn:hover{
+  background:#1d4ed8;
+}
+
+.cancel-btn{
+  flex:1;
+  text-align:center;
+  padding:16px;
+  border-radius:12px;
+  text-decoration:none;
+  background:#f3f4f6;
+  color:#374151;
+}
+
+.cancel-btn:hover{
+  background:#e5e7eb;
+}
+
+</style>
+
+<script>
+
+const imgInput = document.getElementById('catImgInput');
+const imgPreview = document.getElementById('imgPreview');
+const uploadContent = document.getElementById('uploadContent');
+
+imgInput.onchange = () => {
+  const file = imgInput.files[0];
+  if(file){
+    imgPreview.src = URL.createObjectURL(file);
+    imgPreview.style.display='block';
+    uploadContent.style.display='none';
+  }
+};
+
+</script>
+
+<%- include('../footer')%>

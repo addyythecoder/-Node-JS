@@ -1,0 +1,249 @@
+<%- include('../header') %>
+
+<div class="page-wrapper">
+  
+  <div class="content-area">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div>
+        <h2>Administrators</h2>
+        <p>Manage system administrators</p>
+      </div>
+
+      <a href="/admin/add-admin" class="add-btn">
+        + Add Admin
+      </a>
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="table-card">
+
+      <div class="table-header">
+        <h4>Admin Directory</h4>
+        <input type="text" placeholder="Search admin..." id="tableSearch">
+      </div>
+
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Hobbies</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% admin.forEach((val,i)=>{ %>
+          <tr>
+
+            <td><%= i+1 %></td>
+
+            <td>
+              <img src="<%= val.profileImage %>" class="avatar">
+            </td>
+
+            <td>
+              <strong><%= val.firstname %> <%= val.lastname %></strong>
+              <small>ID #<%= val.id.toString().slice(-5) %></small>
+            </td>
+
+            <td>
+              <div class="contact">
+                <span><%= val.email %></span>
+                <small><%= val.mobileno %></small>
+              </div>
+            </td>
+
+            <td>
+              <span class="gender <%= val.gender==='Male'?'male':'female' %>">
+                <%= val.gender %>
+              </span>
+            </td>
+
+            <td>
+              <div class="hobbies">
+                <% val.hobbies.toString().split(',').forEach(h=>{ %>
+                  <span><%= h.trim() %></span>
+                <% }) %>
+              </div>
+            </td>
+
+            <td>
+              <div class="actions">
+                <a href="/admin/edit-admin/<%= val.id %>" class="edit">Edit</a>
+                <a href="/admin/delete-admin/<%= val.id %>" class="delete" onclick="return confirm('Delete admin?')">Delete</a>
+              </div>
+            </td>
+
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+/* FIX MATRIX OVERLAP */
+.page-wrapper{
+  background:#f6f8fb !important;
+}
+
+.content-area{
+  padding:30px 40px;
+}
+
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.top-bar h2{
+  font-weight:700;
+  color:#111;
+}
+
+.top-bar p{
+  color:#6b7280;
+}
+
+/* BUTTON */
+.add-btn{
+  background:#2563eb;
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.add-btn:hover{
+  background:#1d4ed8;
+  color:white;
+}
+
+/* CARD */
+.table-card{
+  background:white;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+/* HEADER */
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+}
+
+.table-header input{
+  padding:10px 14px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  outline:none;
+}
+
+/* TABLE */
+.modern-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.modern-table th{
+  text-align:left;
+  font-size:13px;
+  color:#6b7280;
+  padding:14px;
+  border-bottom:1px solid #eee;
+}
+
+.modern-table td{
+  padding:16px 14px;
+  border-bottom:1px solid #f1f1f1;
+}
+
+.modern-table tr:hover{
+  background:#f9fbff;
+}
+
+/* AVATAR */
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+/* CONTACT */
+.contact{
+  display:flex;
+  flex-direction:column;
+  font-size:14px;
+}
+
+.contact small{
+  color:#6b7280;
+}
+
+/* GENDER */
+.gender{
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.male{
+  background:#e0f2fe;
+  color:#0284c7;
+}
+
+.female{
+  background:#fce7f3;
+  color:#be185d;
+}
+
+/* HOBBIES */
+.hobbies{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.hobbies span{
+  background:#f3f4f6;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+/* ACTIONS */
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+.actions a{
+  text-decoration:none;
+  font-weight:600;
+  font-size:13px;
+}
+
+.edit{ color:#2563eb; }
+.delete{ color:#dc2626; }
+
+</style>
+
+<%- include('../footer') %>
